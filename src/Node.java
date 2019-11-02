@@ -6,6 +6,7 @@ public class Node<T> {
 	ArrayList<Node<T>> children = new ArrayList<Node<T>>(); //is this supposed to be an arraylist of arraylists?
 	int count;
 	
+	
 	Node() { //constructor
 		count = 1;
 	}
@@ -21,20 +22,20 @@ public class Node<T> {
 	boolean addNode(Node<T> node) { //adds new node to PST
 		boolean found = false;
 		
+		
 		if (tokenSequence.equals(node.getTokenSequence())) {  //sees if token sequence is equal to the current node sequence
 			found = true;
-			count++;
+			count++; //counts how many times a sequence occurs
+			//System.out.println(count);
 		}
 		else if (amIASuffix(node) || (tokenSequence.size() == 0)) { //if node is a suffix of token sequence or is the first node after the root node
-			
 			int i = 0;
 			while (!found  && i < children.size()) {  //tries to find out if current node is a suffix of the child nodes
 				
 				found = children.get(i).addNode(node);
 				i++;
 				
-			}
-			
+			}			
 			if (!found) { //if isn't a suffix of the child nodes, adds the node as a child
 				
 				children.add(node);
@@ -87,25 +88,33 @@ public class Node<T> {
 		for (int n = 0; n < children.size(); n++) { //prints children of current node
 			children.get(n).print(numSpacesBefore + 1);
 		}
-	
+	 
 	}
 	
 	boolean pMinElimination(int totalTokens, double pMin) {
 		
-		int numPOccur = totalTokens - (tokenSequence.size() - 1);
-		double empiricalProb = count / numPOccur;
-		boolean shouldRemove = empiricalProb <= pMin;
+		int numPOccur = totalTokens - (tokenSequence.size() - 1); //numPOccur is the number of times the token can possibly occur
+		double empiricalProb = (double) count / numPOccur; //calculates the empirical probability and assigns it to empiricalProb
+		boolean shouldRemove = empiricalProb <= pMin; //determines if node should be removed by determining of empiricalProb is less than or equal to pMin
+			
+		if (tokenSequence.isEmpty()) { //if tokenSequence is empty (aka the root bc the root is an empty string)
+			shouldRemove =  false;
+		}
 		
 		if (shouldRemove == false) {
-			for (int i = children.size() - 1; i >= 0; i--) {
+			
+			for (int i = children.size() - 1; i >= 0; i--) { //checks if node should be removed and if it should, it is removed. Deletes in reverse to prevent
+				
 				boolean remove = children.get(i).pMinElimination(totalTokens, pMin);
+				
 				if (remove == true) {
 					
-					children.remove(i);
-			
+					children.remove(children.get(i)); //removes children
+					
 				}
 			}
 		}
- 		return shouldRemove;
+	
+ 		return shouldRemove; //returns whether the node should be removed
 	}
 }

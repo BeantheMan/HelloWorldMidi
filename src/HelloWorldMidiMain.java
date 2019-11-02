@@ -242,7 +242,7 @@ public class HelloWorldMidiMain extends PApplet {
 				string1.add(str1[i]);
 			}
 			first.train(string1); //trains string
-			System.out.println("------------------------------\nabracadabra: PST L=3\n------------------------------");
+			System.out.println("------------------------------\nabracadabra: PST L=3 Pmin=" + first.getPMin() + "\n------------------------------");
 			first.print(); //prints string
 			System.out.println("\n");
 			
@@ -254,7 +254,7 @@ public class HelloWorldMidiMain extends PApplet {
 				string2.add(str2[i]);
 			}
 			second.train(string2); //trains string
-			System.out.println("------------------------------\nacadaacbda: PST L=3\n------------------------------");
+			System.out.println("------------------------------\nacadaacbda: PST L=3 Pmin=" + first.getPMin() + "\n------------------------------");
 			second.print(); //prints string
 			System.out.println("\n");
 			
@@ -266,7 +266,7 @@ public class HelloWorldMidiMain extends PApplet {
 				string3.add(str3[i]);
 			}
 			third.train(string3); //trains string
-			System.out.println("------------------------------\nabcccdaadcdaabcadad: PST L=3\n------------------------------");
+			System.out.println("------------------------------\nabcccdaadcdaabcadad: PST L=3 Pmin=" + first.getPMin() + "\n------------------------------");
 			third.print(); //prints string
 			System.out.println("\n");
 		
@@ -276,8 +276,64 @@ public class HelloWorldMidiMain extends PApplet {
 			pitch = midiNotes.getPitchArray(); //assigns all of the note pitches from the midi file to the ArrayList pitch	
 			prePitch.train(pitch);
 			
-			System.out.println("------------------------------\nMary Had a Little Lamb: PST L=3\n------------------------------");
+			System.out.println("------------------------------\nMary Had a Little Lamb: PST L=3 Pmin=" + first.getPMin() + "\n------------------------------");
 			prePitch.print();
+			
+			Tree<Integer> prePitch2 = new Tree<Integer>();
+			Tree<String> fourth = new Tree<String>();
+			Tree<String> fifth = new Tree<String>();
+			Tree<String> sixth = new Tree<String>();
+			prePitch2.setPMin(0.15);
+			fourth.setPMin(0.15);
+			fifth.setPMin(0.15);
+			sixth.setPMin(0.15);
+			System.out.println("");
+			
+			
+			String s4 = "abracadabra"; 
+			String[] str4 = s4.split("", s4.length());
+			ArrayList<String> string4 = new ArrayList<String>();
+			for (int i = 0; i < str4.length; i++) { //makes given string into an arraylist of strings
+				string4.add(str4[i]);
+			}
+			fourth.train(string4); //trains string
+			System.out.println("------------------------------\nabracadabra: PST L=3 Pmin=" + fourth.getPMin() + "\n------------------------------");
+			fourth.print(); //prints string
+			System.out.println("\n");
+			
+			
+			String s5 = "acadaacbda";
+			String[] str5 = s5.split("", s5.length());
+			ArrayList<String> string5 = new ArrayList<String>();
+			for (int i = 0; i < str5.length; i++) { //makes given string into an arraylist of strings
+				string5.add(str5[i]);
+			}
+			fifth.train(string5); //trains string
+			System.out.println("------------------------------\nacadaacbda: PST L=3 Pmin=" + fourth.getPMin() + "\n------------------------------");
+			fifth.print(); //prints string
+			System.out.println("\n");
+			
+			
+			String s6 = "abcccdaadcdaabcadad";
+			String[] str6 = s6.split("", s6.length());
+			ArrayList<String> string6 = new ArrayList<String>();
+			for (int i = 0; i < str6.length; i++) { //makes given string into an arraylist of strings
+				string6.add(str6[i]);
+			}
+			sixth.train(string6); //trains string
+			System.out.println("------------------------------\nabcccdaadcdaabcadad: PST L=3 Pmin=" + fourth.getPMin() + "\n------------------------------");
+			sixth.print(); //prints string
+			System.out.println("\n");
+		
+			
+			
+			ArrayList<Integer> pitch2; 
+			pitch2 = midiNotes.getPitchArray(); //assigns all of the note pitches from the midi file to the ArrayList pitch	
+			prePitch2.train(pitch2);
+			
+			System.out.println("------------------------------\nMary Had a Little Lamb: PST L=3 Pmin=" + fourth.getPMin() + "\n------------------------------");
+			prePitch2.print();
+			
 			
 		}
 		else if (key == '7') {
