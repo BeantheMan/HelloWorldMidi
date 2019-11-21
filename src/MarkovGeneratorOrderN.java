@@ -6,6 +6,8 @@ public class MarkovGeneratorOrderN<T> extends MarkovGenerator<T> {
 	ArrayList<ArrayList<T>> uniqueAlphabetSequence = new ArrayList<ArrayList<T>>(); 
 	ArrayList<ArrayList<Integer>> transitionTable = new ArrayList<ArrayList<Integer>>();
 	int orderN = 0;
+	ArrayList<T> prevSequence = new ArrayList<T>();
+	ArrayList<ArrayList<Double>> probabilities = new ArrayList<ArrayList<Double>>();
 	
 	
 	void SetOrder(int input) {
@@ -89,11 +91,31 @@ public class MarkovGeneratorOrderN<T> extends MarkovGenerator<T> {
 			
 			transitionTable.set(rowIndex, row);
 		}
+		PrintProb();
+	}
+	
+	T generate(ArrayList<T> initSeq) {
+		ArrayList<T> newSequence = initSeq;
+		boolean found = uniqueAlphabetSequence.contains(initSeq);
+		if (!found) {
+			
+		}
+		else {
+			
+		}
+		prevSequence = newSequence;
+		return (T) newSequence; //change
+	}
+	
+	void getProbs() {
+		
 	}
 	
 	
 	
-void PrintProb() {
+	void PrintProb() {
+		
+		ArrayList<Double> probs = new ArrayList<Double>();
 		
 		if (alphabet.get(0) instanceof Integer) {
 			System.out.println("\nPitches for order: " + orderN + "\n");
@@ -111,12 +133,13 @@ void PrintProb() {
 		System.out.println("Columns: " + alphabet); //prints all tokens (which are the columns of the transitionTable) in alphabet
 		
 		for (int i = 0; i < uniqueAlphabetSequence.size(); i++) {
+			probs.clear();
 			
 			ArrayList<Integer> row = transitionTable.get(i);
 			
 			double sum = 0;
 			
-			double prob = 0;
+			
 			
 			System.out.print(uniqueAlphabetSequence.get(i));
 			
@@ -126,16 +149,26 @@ void PrintProb() {
 				
 			}
 			
+			double prob = 0;
+			
 			for (int m = 0; m < row.size(); m++) { //divides each value in the row by the sum to calculate the probability and prints the probability
 				
 				prob = row.get(m) / sum;
 				System.out.print(" " + prob + " "); 
+				probs.add(prob);
 				
 			}
+//			System.out.println("Adding: " + probs);
+			probabilities.add(probs);
 			System.out.println("");
 		}
-		System.out.print("\n------------\n");
+		//System.out.println(probabilities.get(0));
+//		System.out.print("\n------------\n");
+//		getProbs();
+
+		System.out.println(probabilities);
 	}	
+	
 }
 
 	

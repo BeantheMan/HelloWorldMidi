@@ -19,7 +19,8 @@ import jm.midi.*;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 
-//import javax.sound.midi.*;
+import javax.sound.midi.*;
+import themidibus.*;
 
 			//make sure this class name matches your file name, if not fix.
 public class HelloWorldMidiMain extends PApplet {
@@ -57,28 +58,6 @@ public class HelloWorldMidiMain extends PApplet {
 
 //		// which line to read in --> this object only reads one line (or ie, voice or ie, one instrument)'s worth of data from the file
 		midiNotes.setWhichLine(0);
-		
-		//code added by Cameron Allen
-//		ArrayList<Integer> pitch; 
-//		ArrayList<Double> rhythm;
-//		pitch = midiNotes.getPitchArray(); //assigns all of the note pitches from the midi file to the ArrayList pitch		
-//		rhythm = midiNotes.getRhythmArray(); //assigns all of the note rhythms from the midi file to the ArrayList rhythm
-		
-		//predictP.train(pitch);
-		//predictR.train(rhythm);
-//		predictPitch.train(pitch); //prints pitches with original probabilities
-//		predictPitch.printAll();
-//		predictPitch.generateMelody();
-//		
-//		ArrayList<Integer> newMelody = predictPitch.generate(20);
-		
-//		predictRhythm.train(rhythm); //prints rhythms with original probabilities
-//		predictRhythm.printAll();
-//		predictRhythm.generateMelody();
-//		
-//		midiNotes.SetPitches(predictPitch.GetToken());
-//		midiNotes.SetRhythms(predictRhythm.GetToken());
-		//end of added code 
 		
 		player = new MelodyPlayer(this, 100.0f);
 
@@ -337,17 +316,13 @@ public class HelloWorldMidiMain extends PApplet {
 			
 		}
 		else if (key == '7') {
-			Tree<String> first = new Tree<String>();
-			String s1 = "abracadabra"; 
-			String[] str1 = s1.split("", s1.length());
-			ArrayList<String> string1 = new ArrayList<String>();
-			for (int i = 0; i < str1.length; i++) { //makes given string into an arraylist of strings
-				string1.add(str1[i]);
-			}
-			first.train(string1); //trains string
-			System.out.println("------------------------------\nabracadabra: PST L=" + first.getL() + "\n------------------------------");
-			first.print(); //prints string
-			System.out.println("\n");
+			MarkovGeneratorOrderN<Integer> prePitch = new MarkovGeneratorOrderN<Integer>();
+			
+			ArrayList<Integer> pitch; 
+			pitch = midiNotes.getPitchArray();
+			
+			prePitch.SetOrder(1);
+			prePitch.train(pitch);
 		}
 	}
 }

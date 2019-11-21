@@ -28,7 +28,7 @@ public class Tree<T> { // git clone, ls, cd, git add --all, git commit -m "messa
 		
 		for (int i = 1; i <= L; i++) {
 			
-			for (int j = i - 1; j < input.size() - 1; j++) { 
+			for (int j = i - 1; j < input.size(); j++) { 
 				
 				ArrayList<T> curSequence = new ArrayList<T>(); 
 				
@@ -51,7 +51,7 @@ public class Tree<T> { // git clone, ls, cd, git add --all, git commit -m "messa
 //				}
 				
 				Node theNewNode = new Node(); //creates a new node
-				
+				System.out.println(curSequence);
 				theNewNode.setTokenSequence(curSequence); //sets the tokenSequence in
 				
 				root.addNode(theNewNode); //adds new node to the PST

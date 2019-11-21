@@ -4,11 +4,11 @@ import java.util.List;
 public class Node<T> {
 	ArrayList<T> tokenSequence = new ArrayList<T>();
 	ArrayList<Node<T>> children = new ArrayList<Node<T>>(); //is this supposed to be an arraylist of arraylists?
-	int count;
+	int count = 1;
 	
 	
 	Node() { //constructor
-		count = 1;
+		
 	}
 	
 	void setTokenSequence(ArrayList<T> input) { //sets the token sequence
@@ -94,9 +94,10 @@ public class Node<T> {
 	boolean pMinElimination(int totalTokens, double pMin) {
 		
 		int numPOccur = totalTokens - (tokenSequence.size() - 1); //numPOccur is the number of times the token can possibly occur
-		double empiricalProb = (double) count / numPOccur; //calculates the empirical probability and assigns it to empiricalProb
-		boolean shouldRemove = empiricalProb <= pMin; //determines if node should be removed by determining of empiricalProb is less than or equal to pMin
+		double empiricalProb = (double) count / (double) numPOccur; //calculates the empirical probability and assigns it to empiricalProb
+		boolean shouldRemove = empiricalProb < pMin; //determines if node should be removed by determining of empiricalProb is less than or equal to pMin
 			
+		System.out.println(count + " " + empiricalProb + " " + tokenSequence);
 		if (tokenSequence.isEmpty()) { //if tokenSequence is empty (aka the root bc the root is an empty string)
 			shouldRemove =  false;
 		}
